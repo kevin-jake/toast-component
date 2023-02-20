@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 
 import Button from "../Button";
 import { ToastContext } from "../ToastProvider/ToastProvider";
@@ -9,28 +9,8 @@ import styles from "./ToastPlayground.module.css";
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
-  const {
-    selection,
-    message,
-    handleSubmit,
-    closeAll,
-    setMessage,
-    setSelection,
-  } = useContext(ToastContext);
-
-  useEffect(() => {
-    function handleKeyDown(event) {
-      if (event.code === "Escape") {
-        closeAll();
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [closeAll]);
+  const { selection, message, handleSubmit, setMessage, setSelection } =
+    useContext(ToastContext);
 
   return (
     <div className={styles.wrapper}>

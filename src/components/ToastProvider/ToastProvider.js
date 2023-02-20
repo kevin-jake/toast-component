@@ -1,4 +1,5 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
+import useEscapeKey from "../../hooks/useEscapeKey";
 
 export const ToastContext = createContext();
 
@@ -8,10 +9,9 @@ function ToastProvider({ children }) {
   const [toastsArray, setToastsArray] = useState([]);
 
   const toastId = Math.random();
-
-  const closeAll = () => {
+  useEscapeKey(() => {
     setToastsArray([]);
-  };
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,7 +35,6 @@ function ToastProvider({ children }) {
         selection,
         message,
         toastsArray,
-        closeAll,
         handleDismiss,
         handleSubmit,
         setMessage,
