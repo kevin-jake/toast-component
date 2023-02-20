@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const ToastContext = createContext();
 
@@ -8,6 +8,10 @@ function ToastProvider({ children }) {
   const [toastsArray, setToastsArray] = useState([]);
 
   const toastId = Math.random();
+
+  const closeAll = () => {
+    setToastsArray([]);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,7 +24,6 @@ function ToastProvider({ children }) {
   };
 
   const handleDismiss = (id) => {
-    console.log(id);
     const toastsCopy = [...toastsArray];
     const newArr = toastsCopy.filter((item) => item.id !== id);
     setToastsArray(newArr);
@@ -32,6 +35,7 @@ function ToastProvider({ children }) {
         selection,
         message,
         toastsArray,
+        closeAll,
         handleDismiss,
         handleSubmit,
         setMessage,
